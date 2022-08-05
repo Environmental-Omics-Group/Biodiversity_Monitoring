@@ -1,4 +1,5 @@
-# Biochemical fingerprinting and AI inform monitoring and management of freshwater ecosystems 
+title: [Biochemical fingerprinting and AI inform monitoring and management of freshwater ecosystems ]
+description: [Add short descriptions here] 
 
 ## sCCA Factor Plots
 
