@@ -1,0 +1,22 @@
+# folders
+__pycache__/
+.idea/
+.vscode/
+.pytest_cache/
+venv/
+build/
+dist/
+kagami.egg-info/
+legacy/
+htmlcov/
+
+# file types
+*.pyc
+*.icloud
+*.swp
+
+# hidden files
+.coverage
+.DS_Store
+.buildversion
+
