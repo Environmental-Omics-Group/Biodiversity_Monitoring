@@ -333,3 +333,74 @@ do
     done
 done
 ```   
+## Picrust
+
+```
+for amp in 161 164; do
+    mkdir -p ${amp}/picrust_pipeline
+    mkdir -p ${amp}/ko_phase
+    mkdir -p ${amp}/ko_phase_pseud
+    mkdir -p ${amp}/ancom_ko_phase
+    mkdir -p ${amp}/ancom_ko_phase_out
+    mkdir -p ${amp}/ancom_ko_data
+    mkdir -p ${amp}/low_abund_ko_rm_phase/
+
+
+    qiime picrust2 full-pipeline --i-table ${amp}/rarefied_table.qza 
+    --i-seq ../${amp}/02_DADA2/rep-seqs_DADA2_${amp}.qza \
+    --output-dir ${amp}/picrust_pipeline \
+    --p-placement-tool epa-ng \
+    --p-threads 3 \
+    --p-hsp-method mp \
+    --p-max-nsti 2 \
+    --verbose
+
+    for phase1 in Recovery Pesticide Eutrophic  ; do
+        for phase2 in  Pesticide Eutrophic SemiPristine ; do
+        
+            if [ "$phase1" = "$phase2" ] 
+            then
+                continue     
+            elif [ "$phase1" = "Eutrophic" ] && [ "$phase2" = "Pesticide" ] 
+            then
+                continue
+            fi
+            echo ${phase1}
+            echo ${phase2}
+
+            qiime feature-table filter-samples \
+                --i-table ${amp}/picrust_pipeline/ko_metagenome.qza \
+                --m-metadata-file ../../metadata.txt \
+                --p-where "[phase_category] IN ('${phase1}', '${phase2}')" \
+                --o-filtered-table ${amp}/ko_phase/ko_${phase1}_${phase2}.qza
+            
+
+            qiime feature-table filter-features \
+                --i-table  ${amp}/ko_phase/ko_${phase1}_${phase2}.qza \
+                --p-min-frequency 50 \
+                --o-filtered-table ${amp}/low_abund_ko_rm_phase/ko_metagenome_min50.qza
+            
+            
+            qiime composition add-pseudocount \
+                --i-table ${amp}/ko_phase/ko_${phase1}_${phase2}.qza \
+                --o-composition-table ${amp}/ko_phase_pseud/ko_pseud_${phase1}_${phase2}.qza
+            
+            qiime composition ancom \
+                --i-table ${amp}/ko_phase_pseud/ko_pseud_${phase1}_${phase2}.qza \
+                --m-metadata-file ../../metadata.txt  \
+                --m-metadata-column phase_category \
+                --o-visualization ${amp}/ancom_ko_phase/ancom_ko_${phase1}_${phase2}.qzv
+            
+            qiime tools export \
+                --input-path ${amp}/ancom_ko_phase/ancom_ko_${phase1}_${phase2}.qzv \
+                --output-path ${amp}/ancom_ko_phase_out/ancom_ko_${phase1}_${phase2} 
+                
+            cp ${amp}/ancom_ko_phase_out/ancom_ko_${phase1}_${phase2}/data.tsv ${amp}/ancom_ko_data/clr_${phase1}_${phase2}.tsv
+            cp ${amp}/ancom_ko_phase_out/ancom_ko_${phase1}_${phase2}/ancom.tsv ${amp}/ancom_ko_data/ancom_${phase1}_${phase2}.tsv
+
+            
+        
+         done
+    done
+done
+```
