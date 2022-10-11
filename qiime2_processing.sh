@@ -38,6 +38,7 @@ for amp in 161 164 181 rbcl coi ; do
 done 
 ```
 ## Import to QIIME2
+
 ```
 
 for amp in 161 164 181 rbcl coi 
