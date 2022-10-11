@@ -1,7 +1,10 @@
 # Data Processing with QIIME2
 Parts of this script follow the [QIIME2 moving pictures tutorial](https://docs.qiime2.org/2021.2/tutorials/moving-pictures/)
+required packages: QIIME2021.2; cutadapt 2.7; pigz 2.4; fastqc 0.11.9; multiqc 1.9; q2-picrust2 2021.2
+
 ## Demultiplexing by barcode
  'top' set of primers used for 16SV1 and 16SV4, 'bottom' set of indexes used for rbcL, COI and 18S
+
 
 ```
 for top in $(ls ../../lr_raw_niamh/data/*top*_R1_001.fastq.gz | cut -d '/' -f5); do
