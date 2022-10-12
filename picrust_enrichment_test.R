@@ -1,17 +1,15 @@
 
 results <- data.frame(matrix(ncol = 5, nrow= 1))
-#have to set nrow to 1 else rbind renames the columns to whatever values it first adds
-#but that means first row is all NA so have to remove it at end
+
 colnames(results) <- c('Pathway_ID', 'Phase_Comparison', 'p_value', 'Odds_ratio', 'barcode')
 
 results$p_value <- as.numeric(results$p_value)
 
-komap <- read.delim("~/Dropbox/e-DNA LRcore/Niamh_PhD/Laker Ring_manuscript/re_analysis/picrust/KEGG_maps/KEGG_map.tsv",
-                    colClasses = "character")
-pathway_id <- read.delim("~/Dropbox/e-DNA LRcore/Niamh_PhD/Laker Ring_manuscript/re_analysis/picrust/KEGG_pathways_picrust2_v2.4.1/KEGG_pathways_to_KO_v2.tsv",
-                         )
-pathway_descrip <- read.delim("~/Dropbox/e-DNA LRcore/Niamh_PhD/Laker Ring_manuscript/re_analysis/picrust/KEGG_pathways_picrust2_v2.4.1/KEGG_pathways_info.txt",
-)
+
+#ko maps, pathway ids and pathway description all obtained from files within mapfiles PICRUST2 https://github.com/picrust/picrust2/tree/master/picrust2/default_files/pathway_mapfiles
+komap <- read.delim("~/KEGG_maps/KEGG_map.tsv", colClasses = "character") #table of all picrust ko with class, subclass, pathway id, pathway name and ko name
+pathway_id <- read.delim("~/KEGG_pathways_picrust2_v2.4.1/KEGG_pathways_to_KO_v2.tsv" ) #table of all ko_ids and pathway_ids which the ko is in
+pathway_descrip <- read.delim("~/KEGG_pathways_picrust2_v2.4.1/KEGG_pathways_info.txt") #table of all pathwayids and pathway names
 
 
 for(barcode in c("16sv1", "16sv4")){
