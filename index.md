@@ -1,6 +1,6 @@
 ---
 title: 100 Years of Anthropogenic Impact Causes Changes in Freshwater Functional Biodiversity
-description: Niamh Eastwood, Jiarui Zhou, Romain Derelle, Mohamed Abou-Elwafa Abdallah, William A. Stubbings, Yunlu Jia, Sarah E. Crawford, Thomas A. Davidson, John K. Colbourne, Simon Creer, Holly Bik, Henner Holler, Luisa Orsini
+description: Niamh Eastwood, Jiarui Zhou, Romain Derelle, Mohamed Abou-Elwafa Abdallah, William A. Stubbings, Yunlu Jia, Sarah E. Crawford, Thomas A. Davidson, John K. Colbourne, Simon Creer, Holly Bik, Henner Hollert, Luisa Orsini
 ---
 
 ## sCCA Plots Showing Co-variation Between Families and Environmental Variables
